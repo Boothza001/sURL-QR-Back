@@ -9,7 +9,6 @@ const port = 3000;
 const uid = new ShortUniqueId();
 app.use(cors());
 app.use(bodyParser.json());
-const svaddr = "http://localhost:3000";
 
 mongoose
   .connect("mongodb+srv://root:1234@cluster0.sbjr9av.mongodb.net/db")
