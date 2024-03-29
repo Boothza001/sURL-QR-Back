@@ -2,7 +2,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const ShortUniqueId = require("short-unique-id");
-const url = require("url");
 const cors = require("cors");
 const app = express();
 const port = 3000;
@@ -33,16 +32,16 @@ app.get("/:url", async (req, res) => {
   res.redirect(url3000);
 });
 
-app.get("/api/redirect/:surl", async (req, res) => {
-  try {
-    const shortUrl = req.params.surl;
-    await Url.findOneAndUpdate({ surl: shortUrl }, { $inc: { count: 1 } });
-    const urlData = await Url.findOne({ surl: shortUrl });
-    res.redirect(urlData.url);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
+// app.get("/api/redirect/:surl", async (req, res) => {
+//   try {
+//     const shortUrl = req.params.surl;
+//     await Url.findOneAndUpdate({ surl: shortUrl }, { $inc: { count: 1 } });
+//     const urlData = await Url.findOne({ surl: shortUrl });
+//     res.redirect(urlData.url);
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// });
 
 app.post("/api/create", async (req, res) => {
   try {
