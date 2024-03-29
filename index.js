@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const ShortUniqueId = require("short-unique-id");
+const url = require("url");
 const cors = require("cors");
 const app = express();
 const port = 3000;
@@ -21,14 +22,23 @@ const Url = mongoose.model("Url", {
   count: { type: Number, default: 0 },
 });
 
+app.get("/:url", async (req, res) => {
+  const urlData = await Url.findOneAndUpdate(
+    { surl: req.params.url },
+    { $inc: { count: 1 } }
+  );
+  const surl3000 = urlData.surl;
+  const url3000 = urlData.url;
+  console.log(url3000);
+  console.log(surl3000);
+  res.redirect(url3000);
+});
+
 app.get("/api/redirect/:surl", async (req, res) => {
   try {
     const shortUrl = req.params.surl;
     await Url.findOneAndUpdate({ surl: shortUrl }, { $inc: { count: 1 } });
     const urlData = await Url.findOne({ surl: shortUrl });
-    if (!urlData) {
-      return res.status(404).send("Short URL not found");
-    }
     res.redirect(urlData.url);
   } catch (error) {
     res.status(500).send(error);
