@@ -15,7 +15,6 @@ mongoose
 const Url = mongoose.model("Url", {
   url: String,
   surl: String,
-  qrurl: String,
   count: { type: Number, default: 0 },
 });
 
@@ -26,9 +25,7 @@ app.post("/api/create", async (req, res) => {
   try {
     const { url } = req.body;
     const sUrl = randomstring.generate({ length: 4, charset: url });
-    const qrUrl =
-      "https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=" + url;
-    const newUrl = await Url.create({ url, surl: sUrl, qrurl: qrUrl });
+    const newUrl = await Url.create({ url, surl: sUrl });
     res.send(newUrl);
   } catch (error) {
     res.status(500).send(error);
@@ -44,11 +41,13 @@ app.get("/api/show", async (req, res) => {
   }
 });
 
-app.put("/api/update/:id", async (req, res) => {
+app.put("/api/update/:surl", async (req, res) => {
   try {
-    const updatedUrl = await Url.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
+    const updatedUrl = await Url.findOneAndUpdate(
+      { surl: req.body.surl },
+      { $inc: { count: 1 } },
+      { new: true }
+    );
     !updatedUrl ? res.status(404).send("URL not found") : res.send(updatedUrl);
   } catch (error) {
     res.status(500).send(error);
