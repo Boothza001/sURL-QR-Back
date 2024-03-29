@@ -39,7 +39,7 @@ app.post("/api/create", async (req, res) => {
   try {
     const { url } = req.body;
     const sUrl = uid.rnd(5);
-    const newsUrl = svaddr + "/" + sUrl;
+    const newsUrl = sUrl;
     const newUrl = await Url.create({ url, surl: newsUrl });
     res.send(newUrl);
   } catch (error) {
