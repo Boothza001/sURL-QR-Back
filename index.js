@@ -1,11 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const randomstring = require("randomstring");
+const ShortUniqueId = require("short-unique-id");
 const cors = require("cors");
-
 const app = express();
 const port = 3000;
+const uid = new ShortUniqueId();
 
 mongoose
   .connect("mongodb+srv://root:1234@cluster0.sbjr9av.mongodb.net/db")
@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 app.post("/api/create", async (req, res) => {
   try {
     const { url } = req.body;
-    const sUrl = randomstring.generate({ length: 4, charset: url });
+    const sUrl = uid.rnd(5);
     const newUrl = await Url.create({ url, surl: sUrl });
     res.send(newUrl);
   } catch (error) {
