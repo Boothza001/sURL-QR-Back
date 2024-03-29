@@ -6,6 +6,9 @@ const cors = require("cors");
 const app = express();
 const port = 3000;
 const uid = new ShortUniqueId();
+app.use(cors());
+app.use(bodyParser.json());
+const svaddr = "http://localhost:3000";
 
 mongoose
   .connect("mongodb+srv://root:1234@cluster0.sbjr9av.mongodb.net/db")
@@ -18,14 +21,26 @@ const Url = mongoose.model("Url", {
   count: { type: Number, default: 0 },
 });
 
-app.use(cors());
-app.use(bodyParser.json());
+app.get("/api/redirect/:surl", async (req, res) => {
+  try {
+    const shortUrl = req.params.surl;
+    await Url.findOneAndUpdate({ surl: shortUrl }, { $inc: { count: 1 } });
+    const urlData = await Url.findOne({ surl: shortUrl });
+    if (!urlData) {
+      return res.status(404).send("Short URL not found");
+    }
+    res.redirect(urlData.url);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 
 app.post("/api/create", async (req, res) => {
   try {
     const { url } = req.body;
     const sUrl = uid.rnd(5);
-    const newUrl = await Url.create({ url, surl: sUrl });
+    const newsUrl = svaddr + "/" + sUrl;
+    const newUrl = await Url.create({ url, surl: newsUrl });
     res.send(newUrl);
   } catch (error) {
     res.status(500).send(error);
@@ -36,19 +51,6 @@ app.get("/api/show", async (req, res) => {
   try {
     const urls = await Url.find();
     res.send(urls);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
-
-app.put("/api/update/:surl", async (req, res) => {
-  try {
-    const updatedUrl = await Url.findOneAndUpdate(
-      { surl: req.body.surl },
-      { $inc: { count: 1 } },
-      { new: true }
-    );
-    !updatedUrl ? res.status(404).send("URL not found") : res.send(updatedUrl);
   } catch (error) {
     res.status(500).send(error);
   }
