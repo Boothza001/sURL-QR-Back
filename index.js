@@ -23,19 +23,22 @@ const Url = mongoose.model("Url", {
   count: { type: Number, default: 0 },
 });
 
-app.get("/api/redirect/:surl", async (req, res) => {
-  const urlData = await Url.findOneAndUpdate(
-    { surl: req.params.surl },
-    { $inc: { count: 1 } }
-  );
-  if (urlData) {
-    const surl3000 = urlData.surl;
-    const url3000 = urlData.url;
-    console.log(url3000);
-    console.log(surl3000);
-    res.redirect(url3000);
-  } else {
-    res.status(404).send("URL not found");
+app.get("/:surl", async (req, res) => {
+  try {
+    const urlData = await Url.findOneAndUpdate(
+      { surl: req.params.surl },
+      { $inc: { count: 1 } }
+    );
+
+    if (urlData) {
+      const url3000 = urlData.url;
+      res.redirect(url3000); // ทำการ redirect ผู้ใช้ไปยัง URL ปลายทาง
+    } else {
+      res.status(404).send("URL not found");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
   }
 });
 
