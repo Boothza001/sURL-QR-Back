@@ -11,7 +11,6 @@ app.use(cors());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 mongoose
   .connect("mongodb+srv://root:1234@cluster0.sbjr9av.mongodb.net/db")
   .then(() => console.log("Connected to MongoDB"))
