@@ -2,20 +2,15 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const ShortUniqueId = require("short-unique-id");
-// const cors = require("cors");
+const cors = require("cors");
 const fetch = require("node-fetch");
 const app = express();
 const port = process.env.PORT || 3000;
 const uid = new ShortUniqueId();
-// app.use(cors());
-// app.use((req, res, next) => {
-//   res.setHeader("Access-Control-Allow-Origin", "*");
-//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-//   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-//   next();
-// });
+app.use(cors());
 
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 mongoose
   .connect("mongodb+srv://root:1234@cluster0.sbjr9av.mongodb.net/db")
