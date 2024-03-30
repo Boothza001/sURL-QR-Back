@@ -6,7 +6,6 @@ git clone https://github.com/Boothza001/sURL-QR-Back.git
 Step  : 2 พิมพ์ใน Terminal
 ```
 cd sURL-QR-Back
-
 ```
 Step  : พิมพ์ใน Terminal
 ```
