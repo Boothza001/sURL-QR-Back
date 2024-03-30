@@ -37,7 +37,7 @@ app.get("/:surl", async (req, res) => {
 
     if (urlData) {
       const url3000 = urlData.url;
-      res.redirect(url3000); // ทำการ redirect ผู้ใช้ไปยัง URL ปลายทาง
+      res.redirect(url3000);
     } else {
       res.status(404).send("URL not found");
     }
