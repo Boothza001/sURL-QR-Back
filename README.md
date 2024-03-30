@@ -1,4 +1,4 @@
-# sUrl app (Back)
+# sURL-QR (back)
 Step  : 1 เข้า VS-Code เข้า Terminal และพิมพ์
 ```
 git clone https://github.com/Boothza001/sURL-QR-Back.git
