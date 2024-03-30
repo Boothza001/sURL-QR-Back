@@ -2,17 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const ShortUniqueId = require("short-unique-id");
-const cors = require("cors");
 const app = express();
 const port = 3000;
 const uid = new ShortUniqueId();
-app.use(cors());
 app.use(bodyParser.json());
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE");
-  next();
-});
 
 mongoose
   .connect("mongodb+srv://root:1234@cluster0.sbjr9av.mongodb.net/db")
