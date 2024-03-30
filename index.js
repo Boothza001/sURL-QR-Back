@@ -10,10 +10,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE");
   next();
 });
 
@@ -37,8 +34,8 @@ app.get("/api/redirect/:surl", async (req, res) => {
     if (urlData) {
       const surl3000 = urlData.surl;
       const url3000 = urlData.url;
-      console.log(url3000);
-      console.log(surl3000);
+      console.log("URL ", url3000);
+      console.log("sURL ", surl3000);
       res.redirect(url3000);
     } else {
       res.status(404).send("URL not found");
@@ -48,17 +45,6 @@ app.get("/api/redirect/:surl", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
-
-// app.get("/api/redirect/:surl", async (req, res) => {
-//   try {
-//     const shortUrl = req.params.surl;
-//     await Url.findOneAndUpdate({ surl: shortUrl }, { $inc: { count: 1 } });
-//     const urlData = await Url.findOne({ surl: shortUrl });
-//     res.redirect(urlData.url);
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// });
 
 app.post("/api/create", async (req, res) => {
   try {
