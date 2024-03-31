@@ -1,16 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 const ShortUniqueId = require("short-unique-id");
 const cors = require("cors");
-
+const fetch = require("node-fetch");
 const app = express();
 const port = process.env.PORT || 3000;
 const uid = new ShortUniqueId();
-
 app.use(cors());
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
