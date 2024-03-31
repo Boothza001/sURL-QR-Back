@@ -1,9 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
 const ShortUniqueId = require("short-unique-id");
 const cors = require("cors");
-const fetch = require("node-fetch");
 const app = express();
 const port = process.env.PORT || 3000;
 const uid = new ShortUniqueId();
