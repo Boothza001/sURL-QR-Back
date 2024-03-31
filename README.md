@@ -2,10 +2,10 @@
 
 #### Download files
 1. Launch Visual Studio Code and open a Terminal window.
-2. Type command in Terminal.     `https://github.com/Boothza001/url-shorten-back.git`
+2. Type command in Terminal.     `git clone https://github.com/Boothza001/url-shorten-back.git`
 
 #### How to install
-1. Type command in Terminal     `cd Back`
+1. Type command in Terminal     `cd url-shorten-back`
 2. Type command in Terminal     `npm i`
 3. Put MongoDB connection string in index.js line 22.
 
