@@ -11,7 +11,7 @@
 ![](https://i.postimg.cc/507h938m/Screenshot-2024-03-31-132026.png)
 
 4. Type command in Terminal.     `npm start`
-5. finish
+5. Finish
 
 #### Stack tools
 - Node.js
