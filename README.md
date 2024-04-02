@@ -8,7 +8,7 @@
 1. Type command in Terminal     `npm i`
 2. Put MongoDB connection string in index.js
 
-[![](https://i.postimg.cc/507h938m/Screenshot-2024-03-31-132026.png)]
+![](https://i.postimg.cc/507h938m/Screenshot-2024-03-31-132026.png)
 
 4. Type command in Terminal.     `npm start`
 5. finish
